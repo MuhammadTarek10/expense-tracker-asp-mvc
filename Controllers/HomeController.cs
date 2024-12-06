@@ -17,11 +17,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        var home = new Category
-        {
-            Title = "ASD",
-        };
-        return View(home);
+        return View();
     }
 
     public IActionResult Privacy()

@@ -20,6 +20,24 @@ namespace expense_tracker.Controllers
               Problem("Entity set is null");
         }
 
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Title, Description")] Category category)
+        {
+            if (!ModelState.IsValid) return BadRequest("Invalid Input");
+
+            if (_context.Categories == null) return NotFound("Categories not found");
+
+            _context.Categories.Add(category);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
 
         public async Task<IActionResult> Details(int? id)
         {
