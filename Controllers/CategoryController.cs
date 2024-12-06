@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace expense_tracker.Controllers
 {
-    class CategoryController : Controller
+    public class CategoryController : Controller
     {
         private readonly ApplicationDbContext _context;
 
