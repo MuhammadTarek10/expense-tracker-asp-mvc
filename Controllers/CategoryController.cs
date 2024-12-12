@@ -15,9 +15,9 @@ namespace expense_tracker.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return _context.Categories != null ?
-              View(await _context.Categories.ToListAsync()) :
-              Problem("Entity set is null");
+            return _context.Categories != null
+                ? View(await _context.Categories.ToListAsync())
+                : Problem("Entity set is null");
         }
 
         public IActionResult Create()
@@ -29,9 +29,11 @@ namespace expense_tracker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Title, Description")] Category category)
         {
-            if (!ModelState.IsValid) return BadRequest("Invalid Input");
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid Input");
 
-            if (_context.Categories == null) return NotFound("Categories not found");
+            if (_context.Categories == null)
+                return NotFound("Categories not found");
 
             _context.Categories.Add(category);
             await _context.SaveChangesAsync();
@@ -41,14 +43,15 @@ namespace expense_tracker.Controllers
 
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Categories == null) return BadRequest();
+            if (id == null || _context.Categories == null)
+                return BadRequest();
 
             Category? category = await _context.Categories.FindAsync(id);
 
-            if (category == null) return NotFound();
+            if (category == null)
+                return NotFound();
 
             return View(category);
-
         }
     }
 }
