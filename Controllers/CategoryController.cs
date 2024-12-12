@@ -49,7 +49,7 @@ namespace expense_tracker.Controllers
             Category? category = await _context.Categories.FindAsync(id);
 
             if (category == null)
-                return NotFound();
+                return NotFound("Category is not found");
 
             return View(category);
         }
