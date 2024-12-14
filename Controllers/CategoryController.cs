@@ -22,12 +22,14 @@ namespace expense_tracker.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            return View(new Category());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title, Description")] Category category)
+        public async Task<IActionResult> Create(
+            [Bind("Title, Description, Type")] Category category
+        )
         {
             if (!ModelState.IsValid)
                 return BadRequest("Invalid Input");
@@ -36,6 +38,35 @@ namespace expense_tracker.Controllers
                 return NotFound("Categories not found");
 
             _context.Categories.Add(category);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null || _context.Categories == null)
+                return BadRequest();
+
+            Category? category = await _context.Categories.FindAsync(id);
+
+            if (category == null)
+                return NotFound("Category not found");
+
+            return View(category);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit([Bind("Title, Description, Type")] Category category)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid Input");
+
+            if (_context.Categories == null)
+                return NotFound("Categories not found");
+
+            _context.Categories.Update(category);
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));

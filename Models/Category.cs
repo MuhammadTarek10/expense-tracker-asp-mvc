@@ -9,10 +9,10 @@ namespace expense_tracker.Models
         public int Id { get; set; }
 
         [Column(TypeName = "nvarchar(50)")]
-        public required string Title { get; set; }
+        public string? Title { get; set; }
 
         [Column(TypeName = "nvarchar(250)")]
-        public required string Description { get; set; }
+        public string? Description { get; set; }
 
         [Column(TypeName = "nvarchar(50)")]
         public string Icon { get; set; } = string.Empty;

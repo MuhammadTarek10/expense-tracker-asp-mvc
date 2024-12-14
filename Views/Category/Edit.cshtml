@@ -1,11 +1,11 @@
 @model expense_tracker.Models.Category
 
 @{
-ViewData["Title"] = "Create Category";
+ViewData["Title"] = "Edit Category";
 }
 
-<h1>Create</h1>
-<form asp-action="Create" method="post">
+<h1>Edit</h1>
+<form asp-action="Edit" method="post">
     <div class="mb-3">
         <ejs-textbox id="title" placeholder="Enter Title" ejs-for="Title" value="@Model.Title"
             floatLabelType="Always"></ejs-textbox>

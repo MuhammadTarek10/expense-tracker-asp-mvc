@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace expense_tracker.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class MakeCategoryOptional : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,7 +17,8 @@ namespace expense_tracker.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Title = table.Column<string>(type: "nvarchar(50)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(50)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(250)", nullable: true),
                     Icon = table.Column<string>(type: "nvarchar(50)", nullable: false),
                     Type = table.Column<string>(type: "nvarchar(50)", nullable: false)
                 },
