@@ -1,17 +1,17 @@
 @model expense_tracker.Models.Category
+
 @{
-    ViewData["Title"] = "Create Category";
+ViewData["Title"] = "Create Category";
 }
 
 <h1>Create</h1>
 <form asp-action="Create" method="post">
     <div class="form-group">
-        <label for="Name">Title</label>
-        <input type="text" class="form-control" asp-for="Title" name="Title" placeholder="Enter Title">
+        <ejs-textbox id="title" placeholder="Enter Title" value="Title"></ejs-textbox>
     </div>
     <div class="form-group">
-        <label for="Description">Description</label>
-       <textarea class="form-control" asp-for="Description" name="Description" placeholder="Enter description" rows="3"></textarea> 
+        <ejs-textarea id="description" name="Description" placeholder="Enter description" value="Description">
+        </ejs-textarea>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
     <div asp-validation-summary="All" class="text-danger"></div>
