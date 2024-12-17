@@ -7,13 +7,14 @@
     <h1>Categories</h1>
     <table>
         <td>
-            <a asp-action="Create">Create New</a>
+            <a asp-action="AddOrEdit">Create New</a>
         </td>
         @if (Model.Count != 0)
         {
         <tr>
             <th>Title</th>
-            <th>Desciprtion</th>
+            <th>Description</th>
+            <th>Type</th>
         </tr>
         @foreach (var item in Model)
         {
@@ -22,7 +23,13 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                <a asp-action="AddOrEdit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>

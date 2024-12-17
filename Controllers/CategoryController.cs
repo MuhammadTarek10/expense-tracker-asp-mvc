@@ -20,33 +20,10 @@ namespace expense_tracker.Controllers
                 : Problem("Entity set is null");
         }
 
-        public IActionResult Create()
-        {
-            return View(new Category());
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(
-            [Bind("Title, Description, Type")] Category category
-        )
-        {
-            if (!ModelState.IsValid)
-                return BadRequest("Invalid Input");
-
-            if (_context.Categories == null)
-                return NotFound("Categories not found");
-
-            _context.Categories.Add(category);
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction(nameof(Index));
-        }
-
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> AddOrEdit(int? id)
         {
             if (id == null || _context.Categories == null)
-                return BadRequest();
+                return View(new Category());
 
             Category? category = await _context.Categories.FindAsync(id);
 
@@ -58,7 +35,9 @@ namespace expense_tracker.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("Title, Description, Type")] Category category)
+        public async Task<IActionResult> AddOrEdit(
+            [Bind("Id, Title, Description, Type")] Category category
+        )
         {
             if (!ModelState.IsValid)
                 return BadRequest("Invalid Input");
@@ -66,7 +45,11 @@ namespace expense_tracker.Controllers
             if (_context.Categories == null)
                 return NotFound("Categories not found");
 
-            _context.Categories.Update(category);
+            if (category.Id == 0)
+                await _context.Categories.AddAsync(category);
+            else
+                _context.Update(category);
+
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));

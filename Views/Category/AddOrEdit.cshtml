@@ -1,0 +1,26 @@
+@model expense_tracker.Models.Category
+
+@{
+ViewData["Title"] = "AddOrEdit Category";
+}
+
+<h1>Create</h1>
+<form asp-action="AddOrEdit" method="post">
+    <div class="mb-3">
+        <input type="hidden" name="Id" value="@Model.Id"/>
+        <ejs-textbox id="title" placeholder="Enter Title" ejs-for="Title" value="@Model.Title" floatLabelType="Always">
+        </ejs-textbox>
+    </div>
+    <div class="mb-3">
+        <ejs-textbox id="description" placeholder="Enter Description" ejs-for="Description" value="@Model.Description"
+            floatLabelType="Always">
+        </ejs-textbox>
+    </div>
+    <div class="mb-3">
+        <input id="radioleft" type="radio" name="Type" value="Expense" checked="@(Model.Type == "Expense")">
+        <label for="radioleft">Expense</labelfor>
+        <input id="radioright" type="radio" name="Type" value="Income" checked="@(Model.Type == "Income")">
+        <label for="radioright">Income</label>
+        </div>
+    <ejs-button id="submit" type="submit" cssClass="e-success" content="Submit"></ejs-button>
+</form>
