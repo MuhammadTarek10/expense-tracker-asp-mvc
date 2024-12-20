@@ -55,7 +55,9 @@ namespace expense_tracker.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Details(int? id)
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Categories == null)
                 return BadRequest();
@@ -65,7 +67,10 @@ namespace expense_tracker.Controllers
             if (category == null)
                 return NotFound("Category is not found");
 
-            return View(category);
+            _context.Categories.Remove(category);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

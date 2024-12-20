@@ -4,36 +4,39 @@
     ViewData["Title"] = "Categories";
     }
 
-    <h1>Categories</h1>
-    <table>
-        <td>
-            <a asp-action="AddOrEdit">Create New</a>
-        </td>
-        @if (Model.Count != 0)
-        {
-        <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Type</th>
-        </tr>
-        @foreach (var item in Model)
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                <a asp-action="AddOrEdit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-        }
-        }
-    </table>
+    <div class='row'>
+        <div class="col-md-7">
+            <a href="/Category/AddOrEdit/">Create New</a>
+            <ejs-grid id="categories" dataSource="@Model" allowSorting="true" allowPaging="true">
+                <e-grid-columns>
+                    <e-grid-column header="Category" field="Title"></e-grid-column>
+                    <e-grid-column header="Type" field="Type" template="#typeTemplate"></e-grid-column>
+                    <e-grid-column header="Action" template="#actionTemplate"></e-grid-column>
+                </e-grid-columns>
+            </ejs-grid>
+        </div>
+
+    </div>
+
+    <script id="typeTemplate" type="text/x-template">
+        ${if(Type=="Expense")}
+            <span class="badge bg-success">${Type}</span>
+        ${else}
+            <span class="badge bg-danger">${Type}</span>
+        ${/if}
+    </script>
+
+    <script id="actionTemplate" type="text/x-template">
+        <div class="d-flex flex-row justify-content-start">
+            <a class="btn btn-sm" href="/Category/AddOrEdit/${Id}">
+                <i class="fa-solid fa-pen fa-lg"></i>
+            </a>
+            <form action="/Category/Delete/${Id}" method="post">
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-sm btn-link no-a-decoration"
+                onclick="return confirm(You sure)">
+                   <i class="fa-solid fa-trash fa-lg"></i>
+                </button>
+            </form>
+        </div>
+    </script>

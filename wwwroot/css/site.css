@@ -41,3 +41,10 @@ body {
 .e-bigger {
   font-size: x-large;
 }
+
+.e-grid {
+  border: none;
+  border-radius: 4px;
+  font-size: 12pt;
+  background-color: #000000;
+}
