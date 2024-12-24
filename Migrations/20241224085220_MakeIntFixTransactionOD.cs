@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace expense_tracker.Migrations
 {
     /// <inheritdoc />
-    public partial class MakeGuid : Migration
+    public partial class MakeIntFixTransactionOD : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,7 +15,8 @@ namespace expense_tracker.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(type: "nvarchar(50)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(250)", nullable: true),
                     Icon = table.Column<string>(type: "nvarchar(50)", nullable: false),
@@ -30,11 +31,12 @@ namespace expense_tracker.Migrations
                 name: "Transactions",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    CategoryId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CategoryId = table.Column<int>(type: "INTEGER", nullable: false),
                     Amount = table.Column<int>(type: "INTEGER", nullable: false),
                     Note = table.Column<string>(type: "nvarchar(75)", nullable: true),
-                    date = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    Date = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

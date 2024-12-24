@@ -1,7 +1,7 @@
 @model expense_tracker.Models.Category
 
 @{
-    ViewData["Title"] = "AddOrEdit Category";
+    ViewData["Title"] = @Model.Title == null ? "Create Category" : "Edit Category";
 }
 
 <h1>Create</h1>

@@ -1,17 +1,19 @@
-@model List<expense_tracker.Models.Category>
+
+@model List<expense_tracker.Models.Transaction>
 
 @{
-    ViewData["PageTitle"] = "Categories";
-    ViewData["PageAcitonUrl"] = "/Category/AddOrEdit/";
-    ViewData["PageAcitonText"] = "+ New Categroy";
+    ViewData["PageTitle"] = "Transacitons";
+    ViewData["PageAcitonUrl"] = "/Transaction/AddOrEdit/";
+    ViewData["PageAcitonText"] = "+ New Transaciton";
 }
 
 <div class='row'>
     <div class="col-md-7">
         <ejs-grid id="categories" dataSource="@Model" allowSorting="true" allowPaging="true">
             <e-grid-columns>
-                <e-grid-column header="Category" field="Title"></e-grid-column>
-                <e-grid-column header="Type" field="Type" template="#typeTemplate"></e-grid-column>
+                <e-grid-column header="Transaction" field="CategoryId"></e-grid-column>
+                <e-grid-column header="Type" field="Note"></e-grid-column>
+                <e-grid-column header="Type" field="Date"></e-grid-column>
                 <e-grid-column header="Action" template="#actionTemplate"></e-grid-column>
             </e-grid-columns>
         </ejs-grid>
@@ -29,10 +31,10 @@
 
 <script id="actionTemplate" type="text/x-template">
     <div class="d-flex flex-row justify-content-start">
-        <a class="btn btn-sm" href="/Category/AddOrEdit/${Id}">
+        <a class="btn btn-sm" href="/Transaction/AddOrEdit/${Id}">
             <i class="fa-solid fa-pen fa-lg"></i>
         </a>
-        <form action="/Category/Delete/${Id}" method="post">
+        <form action="/Transaction/Delete/${Id}" method="post">
             @Html.AntiForgeryToken()
             <button type="submit" class="btn btn-sm btn-link no-a-decoration"
             onclick="return confirm(You sure)">

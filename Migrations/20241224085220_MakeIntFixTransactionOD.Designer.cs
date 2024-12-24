@@ -11,8 +11,8 @@ using expense_tracker.Models;
 namespace expense_tracker.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241224034835_MakeGuid")]
-    partial class MakeGuid
+    [Migration("20241224085220_MakeIntFixTransactionOD")]
+    partial class MakeIntFixTransactionOD
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,9 +22,9 @@ namespace expense_tracker.Migrations
 
             modelBuilder.Entity("expense_tracker.Models.Category", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(250)");
@@ -47,21 +47,21 @@ namespace expense_tracker.Migrations
 
             modelBuilder.Entity("expense_tracker.Models.Transaction", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Amount")
                         .HasColumnType("INTEGER");
 
-                    b.Property<Guid>("CategoryId")
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(75)");
-
-                    b.Property<DateTime>("date")
-                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -72,13 +72,13 @@ namespace expense_tracker.Migrations
 
             modelBuilder.Entity("expense_tracker.Models.Transaction", b =>
                 {
-                    b.HasOne("expense_tracker.Models.Category", "category")
+                    b.HasOne("expense_tracker.Models.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("category");
+                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(
-    "Ngo9BigBOggjHTQxAR8/V1NMaF5cXmBCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWH1fd3RXQmBYUkVyVkY="
+        builder.Configuration.GetConnectionString("SyncFusionLicence")
 );
 
 // Add services to the container.

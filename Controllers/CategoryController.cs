@@ -7,10 +7,12 @@ namespace expense_tracker.Controllers
     public class CategoryController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ILogger<CategoryController> _logger;
 
-        public CategoryController(ApplicationDbContext context)
+        public CategoryController(ApplicationDbContext context, ILogger<CategoryController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public async Task<IActionResult> Index()
@@ -20,14 +22,13 @@ namespace expense_tracker.Controllers
                 : Problem("Entity set is null");
         }
 
-        public async Task<IActionResult> AddOrEdit(Guid? id)
+        public async Task<IActionResult> AddOrEdit(int? id = 0)
         {
-
-            if (id == null || _context.Categories == null) return View(new Category());
+            if (id == 0 || _context.Categories == null) return View(new Category());
 
             Category? category = await _context.Categories.FindAsync(id);
 
-            if (category == null) return NotFound("Category not found");
+            if (category == null) return NotFound("Category is not found");
 
             return View(category);
         }
@@ -42,9 +43,7 @@ namespace expense_tracker.Controllers
 
             if (_context.Categories == null) return NotFound("Categories not found");
 
-            Console.WriteLine(category);
-
-            if (category.Id == null) await _context.Categories.AddAsync(category);
+            if (category.Id == 0) await _context.Categories.AddAsync(category);
             else _context.Update(category);
 
             await _context.SaveChangesAsync();
@@ -54,15 +53,13 @@ namespace expense_tracker.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(Guid? id)
+        public async Task<IActionResult> Delete(int? id = 0)
         {
-            if (id == null || _context.Categories == null)
-                return BadRequest();
+            if (id == null || _context.Categories == null) return BadRequest();
 
             Category? category = await _context.Categories.FindAsync(id);
 
-            if (category == null)
-                return NotFound("Category is not found");
+            if (category == null) return NotFound("Category is not found");
 
             _context.Categories.Remove(category);
             await _context.SaveChangesAsync();

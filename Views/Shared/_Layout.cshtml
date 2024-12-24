@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Expense Tracker</title>
+    <title>Expense Tracker</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
@@ -41,6 +41,24 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+                <div class="row">
+                    <div class="col-md-7">
+                        <div class="d-flex flex-column mb-5">
+                            <div class="d-flex mb-1">
+                                <div class="flex-grow-1">
+                                    <h3 class="fw-bold">@ViewData["PageTitle"]</h3>
+                                </div>
+                                <div>
+                                    @if(ViewData["PageAcitonUrl"] != null)
+                                    {
+                                        <a class="btn btn-success" href="@ViewData["PageAcitonUrl"]">@ViewData["PageAcitonText"]</a>
+                                    }
+                                </div>
+                            </div>
+                            <ejs-breadcrumb id="breadcrumb" separatorTemplate="@Html.Raw("<span class='fa-solid fa-angle-right'></span>")"></ejs-breadcrumb>
+                        </div>
+                    </div>
+                </div>
             @RenderBody()
         </main>
     </div>
