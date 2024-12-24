@@ -6,7 +6,7 @@ namespace expense_tracker.Models
     public class Category
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Column(TypeName = "nvarchar(50)")]
         public string? Title { get; set; }

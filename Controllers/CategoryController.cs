@@ -20,15 +20,14 @@ namespace expense_tracker.Controllers
                 : Problem("Entity set is null");
         }
 
-        public async Task<IActionResult> AddOrEdit(int? id)
+        public async Task<IActionResult> AddOrEdit(Guid? id)
         {
-            if (id == null || _context.Categories == null)
-                return View(new Category());
+
+            if (id == null || _context.Categories == null) return View(new Category());
 
             Category? category = await _context.Categories.FindAsync(id);
 
-            if (category == null)
-                return NotFound("Category not found");
+            if (category == null) return NotFound("Category not found");
 
             return View(category);
         }
@@ -39,16 +38,14 @@ namespace expense_tracker.Controllers
             [Bind("Id, Title, Description, Type")] Category category
         )
         {
-            if (!ModelState.IsValid)
-                return BadRequest("Invalid Input");
+            if (!ModelState.IsValid) return BadRequest("Invalid Input");
 
-            if (_context.Categories == null)
-                return NotFound("Categories not found");
+            if (_context.Categories == null) return NotFound("Categories not found");
 
-            if (category.Id == 0)
-                await _context.Categories.AddAsync(category);
-            else
-                _context.Update(category);
+            Console.WriteLine(category);
+
+            if (category.Id == null) await _context.Categories.AddAsync(category);
+            else _context.Update(category);
 
             await _context.SaveChangesAsync();
 
@@ -57,7 +54,7 @@ namespace expense_tracker.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null || _context.Categories == null)
                 return BadRequest();

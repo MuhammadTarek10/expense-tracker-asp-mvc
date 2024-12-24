@@ -11,8 +11,8 @@ using expense_tracker.Models;
 namespace expense_tracker.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241214165456_MakeCategoryOptional")]
-    partial class MakeCategoryOptional
+    [Migration("20241224034835_MakeGuid")]
+    partial class MakeGuid
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,9 +22,9 @@ namespace expense_tracker.Migrations
 
             modelBuilder.Entity("expense_tracker.Models.Category", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(250)");
@@ -47,15 +47,15 @@ namespace expense_tracker.Migrations
 
             modelBuilder.Entity("expense_tracker.Models.Transaction", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Amount")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(75)");

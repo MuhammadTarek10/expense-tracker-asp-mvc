@@ -6,9 +6,9 @@ namespace expense_tracker.Models
     public class Transaction
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
-        public int CategoryId { get; set; }
+        public Guid CategoryId { get; set; }
         public required Category category { get; set; }
 
         public int Amount { get; set; }
